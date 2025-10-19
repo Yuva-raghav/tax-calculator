@@ -3,21 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Income Tax Slab Calculator</title>
+    <title>Prediction Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Income Tax Slab Calculator</h1>
-        <p>For FY 2025-26 (AY 2026-27)</p>
+    <div class="dashboard-container">
+        <h1>Prediction Dashboard</h1>
         
-        <label for="salaryInput">Enter your annual income (in Rs.):</label>
-        <input type="number" id="salaryInput" placeholder="e.g., 1500000">
-        
-        <button id="calculateBtn">Check Category & Tax</button>
-        
-        <div id="result"></div>
-        <div id="taxAmount"></div>
+        <div class="button-group">
+            <button id="showTaxBtn">Tax Prediction</button>
+            <button id="showGoldBtn">Gold Prediction (Past 30 Days)</button>
+            <button id="showBothBtn">Tax + Gold Prediction</button>
+        </div>
+
+        <div class="content-area">
+            
+            <div id="taxSection" class="prediction-module hidden">
+                <h2>Income Tax Calculator</h2>
+                <p>For FY 2025-26 (AY 2026-27)</p>
+                <label for="salaryInput">Enter your annual income (in Rs.):</label>
+                <input type="number" id="salaryInput" placeholder="e.g., 1500000">
+                <button id="calculateTaxBtn">Calculate Tax</button>
+                <div id="taxResult" class="result-text"></div>
+                <div id="taxAmount" class="amount-text"></div>
+            </div>
+
+            <div id="goldSection" class="prediction-module hidden">
+                <h2>Gold Price Trend (Past 30 Days)</h2>
+                <p>Price per 10 grams (24K Gold)</p>
+                <canvas id="goldChart"></canvas>
+            </div>
+            
+        </div>
     </div>
 
     <script src="script.js"></script>
