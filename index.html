@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prediction Dashboard</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -18,7 +17,7 @@
         
         <div class="button-group">
             <button id="showTaxBtn">Tax Prediction</button>
-            <button id="showGoldBtn">Gold Prediction (Past 30 Days)</button>
+            <button id="showGoldBtn">Gold Prediction</button>
             <button id="showBothBtn">Tax + Gold Prediction</button>
         </div>
 
@@ -35,8 +34,15 @@
             </div>
 
             <div id="goldSection" class="prediction-module hidden">
-                <h2>Gold Price Trend (Past 30 Days)</h2>
+                <h2>Gold Price Trend</h2>
                 <p>Price per 10 grams (24K Gold)</p>
+                
+                <div class="date-range-buttons">
+                    <button id="btn7d">7 Days</button>
+                    <button id="btn30d" class="active">30 Days</button>
+                    <button id="btn90d">90 Days</button>
+                </div>
+                
                 <canvas id="goldChart"></canvas>
             </div>
             
