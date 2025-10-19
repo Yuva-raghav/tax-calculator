@@ -1,71 +1,93 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f4f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient to right, #6dd5ed, #2193b0; /* Vibrant gradient background */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    color: #333;
 }
 
 .container {
     background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 35px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 90%;
-    max-width: 400px;
+    max-width: 450px;
+    box-sizing: border-box; /* Include padding in width */
 }
 
 h1 {
-    color: #333;
-    margin-bottom: 5px;
+    color: #007bff; /* Bright blue for heading */
+    margin-bottom: 10px;
+    font-size: 2em;
 }
 
 p {
-    color: #666;
+    color: #555;
     margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 1.1em;
 }
 
 label {
     display: block;
     margin-top: 20px;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.1em;
 }
 
 input[type="number"] {
-    width: 100%;
+    width: calc(100% - 24px); /* Account for padding */
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Important for padding and width */
-    font-size: 16px;
+    border: 2px solid #a0c4ff; /* Lighter blue border */
+    border-radius: 8px;
+    font-size: 1.1em;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+    border-color: #007bff; /* Focus color */
 }
 
 button {
     width: 100%;
-    padding: 12px;
-    background-color: #007bff;
+    padding: 14px;
+    background-color: #28a745; /* Green for action */
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-    transition: background-color 0.3s;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 30px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    letter-spacing: 0.5px;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px);
 }
 
 #result {
-    margin-top: 25px;
-    font-size: 18px;
+    margin-top: 30px;
+    font-size: 1.3em;
     font-weight: bold;
-    color: #2c3e50;
-    min-height: 25px; /* Prevents layout shift */
+    color: #007bff; /* Matching heading color */
+    min-height: 25px;
+}
+
+#taxAmount {
+    margin-top: 15px;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #dc3545; /* Red for tax amount */
+    min-height: 25px;
 }
