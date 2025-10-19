@@ -1,33 +1,51 @@
-// Get the elements from the HTML
 const salaryInput = document.getElementById('salaryInput');
 const calculateBtn = document.getElementById('calculateBtn');
 const resultDiv = document.getElementById('result');
+const taxAmountDiv = document.getElementById('taxAmount');
 
-// Add an event listener to the button
 calculateBtn.addEventListener('click', () => {
-    // Get the salary value and convert it to a number
     const salary = Number(salaryInput.value);
     let category = '';
+    let taxPayable = 0;
 
-    // Check for invalid input
+    // Tax Slabs and Rates for FY 2025-26
+    const slabs = [
+        { limit: 400000, rate: 0.00, baseTax: 0 },
+        { limit: 800000, rate: 0.05, prevLimit: 400000, baseTax: 0 }, // (8L - 4L) * 5% = 20,000
+        { limit: 1200000, rate: 0.10, prevLimit: 800000, baseTax: 20000 }, // 20k + (12L - 8L) * 10% = 20k + 40k = 60,000
+        { limit: 1600000, rate: 0.15, prevLimit: 1200000, baseTax: 60000 }, // 60k + (16L - 12L) * 15% = 60k + 60k = 120,000
+        { limit: 2000000, rate: 0.20, prevLimit: 1600000, baseTax: 120000 }, // 120k + (20L - 16L) * 20% = 120k + 80k = 200,000
+        { limit: 2400000, rate: 0.25, prevLimit: 2000000, baseTax: 200000 }, // 200k + (24L - 20L) * 25% = 200k + 100k = 300,000
+        { limit: Infinity, rate: 0.30, prevLimit: 2400000, baseTax: 300000 } // Above 24L
+    ];
+
     if (isNaN(salary) || salary < 0) {
         category = 'Please enter a valid positive number.';
-    } else if (salary <= 400000) {
-        category = 'Up to Rs. 4 lakh (Nil Tax)';
-    } else if (salary > 400000 && salary <= 800000) {
-        category = 'Rs. 4 lakh to Rs. 8 lakh (5%)';
-    } else if (salary > 800000 && salary <= 1200000) {
-        category = 'Rs. 8 lakh to Rs. 12 lakh (10%)';
-    } else if (salary > 1200000 && salary <= 1600000) {
-        category = 'Rs. 12 lakh to Rs. 16 lakh (15%)';
-    } else if (salary > 1600000 && salary <= 2000000) {
-        category = 'Rs. 16 lakh to Rs. 20 lakh (20%)';
-    } else if (salary > 2000000 && salary <= 2400000) {
-        category = 'Rs. 20 lakh to Rs. 24 lakh (25%)';
-    } else { // salary > 2400000
-        category = 'Above Rs. 24 lakh (30%)';
+        taxPayable = 0;
+    } else if (salary <= slabs[0].limit) {
+        category = `Up to Rs. ${slabs[0].limit / 100000} lakh`;
+        taxPayable = 0;
+    } else {
+        for (let i = 1; i < slabs.length; i++) {
+            if (salary <= slabs[i].limit) {
+                category = `Rs. ${slabs[i].prevLimit / 100000} lakh to Rs. ${slabs[i].limit / 100000} lakh`;
+                taxPayable = slabs[i].baseTax + (salary - slabs[i].prevLimit) * slabs[i].rate;
+                break;
+            }
+        }
+        // For the highest slab (Above Rs. 24 lakh)
+        if (salary > slabs[slabs.length - 1].prevLimit && salary > 2400000) {
+            category = `Above Rs. ${slabs[slabs.length - 1].prevLimit / 100000} lakh`;
+            taxPayable = slabs[slabs.length - 1].baseTax + (salary - slabs[slabs.length - 1].prevLimit) * slabs[slabs.length - 1].rate;
+        }
     }
 
-    // Display the result on the page
-    resultDiv.textContent = `Your category is: ${category}`;
+    resultDiv.textContent = `Your income category is: ${category}`;
+    if (taxPayable > 0) {
+        taxAmountDiv.textContent = `Estimated Tax Payable: Rs. ${taxPayable.toLocaleString('en-IN')}`;
+    } else if (salary > 0) {
+        taxAmountDiv.textContent = `No Tax Payable`;
+    } else {
+        taxAmountDiv.textContent = ''; // Clear if invalid input
+    }
 });
